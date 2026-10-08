@@ -45,30 +45,50 @@ function buildQuestionList(){
 
 function renderChart(){
   const d = survey[current];
-  $("#chartCategory").textContent = `Q${current+1} · ${d.c}`;
+
+  $("#chartCategory").textContent = `Q${current + 1} · ${d.c}`;
   $("#chartTitle").textContent = d.q;
   $("#viewToggle").textContent = showPercent ? "Show counts" : "Show %";
-  const max = Math.max(...d.o.map(x=>x[1]));
-  $("#chartBars").innerHTML = d.o.map((x,i)=>{
+
+  $("#chartBars").innerHTML = d.o.map((x, i) => {
     const cls = d.k?.includes(i) ? "risky" : "";
-    const width = (x[1]/max)*100;
-    const value = showPercent ? `${(x[1]/N*100).toFixed(1)}%` : `${x[1]} / ${N}`;
-    return `<div class="bar-row ${cls}">
-      <span>${x[0]}</span>
-      <div class="bar-track"><i class="bar-fill" data-width="${width}"></i></div>
-      <span class="bar-value">${value}</span>
-    </div>`;
+
+    // Width based on total respondents (38)
+    const width = (x[1] / N) * 100;
+
+    const value = showPercent
+      ? `${(x[1] / N * 100).toFixed(1)}%`
+      : `${x[1]} / ${N}`;
+
+    return `
+      <div class="bar-row ${cls}">
+        <span>${x[0]}</span>
+        <div class="bar-track">
+          <i class="bar-fill" data-width="${width}"></i>
+        </div>
+        <span class="bar-value">${value}</span>
+      </div>
+    `;
   }).join("");
+
   $("#interpretation").innerHTML = d.r;
-  document.querySelectorAll("#questionList button").forEach((b,i)=>b.classList.toggle("active",i===current));
-  requestAnimationFrame(()=>requestAnimationFrame(()=>{
-    document.querySelectorAll(".bar-fill").forEach(el=>el.style.width=el.dataset.width+"%");
-  }));
+
+  document.querySelectorAll("#questionList button").forEach((b, i) => {
+    b.classList.toggle("active", i === current);
+  });
+
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => {
+      document.querySelectorAll(".bar-fill").forEach(el => {
+        el.style.width = `${el.dataset.width}%`;
+      });
+    });
+  });
 }
 
 function buildHabits(){
   $("#habitGrid").innerHTML = habits.map((h,i)=>
-    `<label class="habit"><input type="checkbox" data-index="${i}"><span><strong>${h[0]}</strong><small>↳ ${h[1]}</small></span></label>`
+    `<label class="habit"><input type="checkbox" data-index="${i}"><span><strong>${h[0]}</strong><small>${h[1]}</small></span></label>`
   ).join("");
   document.querySelectorAll(".habit input").forEach(input=>{
     input.addEventListener("change",()=>{
