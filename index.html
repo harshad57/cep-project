@@ -6,9 +6,10 @@
   <meta name="description" content="CEP project: Social Media Safety & Digital Footprint Awareness — survey findings, risks and practical safety guidance.">
   <title>Digital Trace — Social Media Safety & Digital Footprint Awareness</title>
   
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <a class="skip-link" href="#main">Skip to content</a>
   <header class="site-header" id="top">
     <nav class="nav shell" aria-label="Primary navigation">
       <a class="brand" href="#top" aria-label="Digital Trace home">
@@ -22,17 +23,20 @@
         <a href="#survey">Survey</a>
         <a href="#risks">Key gaps</a>
         <a href="#guide">Safety guide</a>
+        <a href="#quiz">Check yourself</a>
+        <a href="#scam">Spot the scam</a>
+        <a href="#plan">My plan</a>
         <a href="#method">Method</a>
       </div>
       <button class="theme-btn" id="themeBtn" aria-label="Toggle dark mode">◐</button>
     </nav>
   </header>
 
-  <main>
+  <main id="main">
     <section class="hero shell" id="overview">
       <div class="hero-copy">
         <p class="eyebrow">COMMUNITY ENGAGEMENT PROJECT · 2026–27</p>
-        <h1>Your online life leaves a <span>trace.<span/></h1>
+        <h1>Your online life leaves a <span>trace.</span></h1>
         <p class="hero-text">A survey-based awareness project examining privacy habits, account security, online threats and understanding of digital footprints.</p>
         <div class="hero-actions">
           <a class="btn primary" href="#survey">Explore the findings</a>
@@ -180,12 +184,167 @@
       </div>
     </section>
 
+    <!-- ============ FEATURE 1: CHECK YOURSELF QUIZ ============ -->
+    <section class="section" id="quiz" aria-labelledby="quizHeading">
+      <div class="shell">
+        <div class="section-intro">
+          <p class="eyebrow">05 · CHECK YOURSELF</p>
+          <h2 id="quizHeading">Check <span>yourself.</span></h2>
+          <p>Eight questions taken straight from our survey. See your safety score and how your habits compare with the 38 respondents.</p>
+        </div>
+
+        <div class="tool-card" id="quizCard">
+          <!-- Start screen -->
+          <div id="quizIntro">
+            <h3 class="q-title">Ready? It takes a few minutes.</h3>
+            <p class="hint">Each question is one we asked in the survey, so you will see how your answer compares. There are no wrong answers to be embarrassed about.</p>
+            <div class="tool-actions">
+              <button type="button" class="tbtn primary" id="quizStart">Start the quiz</button>
+            </div>
+          </div>
+
+          <!-- Question screen -->
+          <div id="quizQ" hidden>
+            <div class="tool-head">
+              <span class="card-tag" id="qCount"></span>
+            </div>
+            <div class="progress tool-progress" id="qProgress" role="progressbar" aria-label="Quiz progress" aria-valuemin="0" aria-valuemax="8" aria-valuenow="0">
+              <i id="qBar"></i>
+            </div>
+            <h3 class="q-title" id="qTitle" tabindex="-1"></h3>
+            <div class="opts" id="qOpts" role="group" aria-labelledby="qTitle"></div>
+            <div class="feedback" id="qFeedback" hidden></div>
+            <div class="tool-actions">
+              <button type="button" class="tbtn primary" id="qNext" aria-describedby="qFeedback" hidden>Next question</button>
+            </div>
+            <p class="kbd-hint">Keyboard: press 1–4 to choose, to move between options, Enter to continue.</p>
+          </div>
+
+          <!-- Results screen -->
+          <div id="quizResults" hidden>
+            <h3 class="card-tag" id="resultsHeading" tabindex="-1">YOUR RESULT</h3>
+            <div class="score-wrap">
+              <div class="score-num" id="scoreNum" aria-live="polite"></div>
+              <span class="level" id="scoreLevel"></span>
+            </div>
+            <p class="result-msg" id="scoreMsg"></p>
+            <p class="hint">Your bar is full when you gave the safest answer. The grey bar shows the share of survey respondents who did.</p>
+            <ul class="cmp-list" id="cmpList"></ul>
+            <div class="tool-actions">
+              <a class="tbtn primary" href="#plan">See my action plan</a>
+              <button type="button" class="tbtn" id="quizRetake">Retake the quiz</button>
+            </div>
+          </div>
+
+          <p class="privacy-note">Your answers stay on your device and are not saved.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ FEATURE 2: SPOT THE SCAM GAME ============ -->
+    <section class="section alt-section" id="scam" aria-labelledby="scamHeading">
+      <div class="shell">
+        <div class="section-intro">
+          <p class="eyebrow">06 · SPOT THE SCAM</p>
+          <h2 id="scamHeading">Spot the <span>scam.</span></h2>
+          <p>Six messages, one of them safe. Tap the parts that look suspicious, press Check, and see which red flags you found.</p>
+        </div>
+
+        <div class="tool-card" id="scamCard">
+          <div id="gPlay">
+            <div class="tool-head">
+              <span class="card-tag" id="gCount"></span>
+              <span class="badge">Examples are made up for learning.</span>
+            </div>
+            <div class="progress tool-progress" id="gProgress" role="progressbar" aria-label="Spot the Scam progress" aria-valuemin="0" aria-valuemax="6" aria-valuenow="0">
+              <i id="gBar"></i>
+            </div>
+            <h3 class="q-title">Is this message safe?</h3>
+            <p class="hint" id="gHelp">Tap any part you think is suspicious, then press Check. If it all looks fine, just press Check.</p>
+            <div class="msg" id="gMsg" role="group" aria-describedby="gHelp" tabindex="-1"></div>
+            <p class="hint" id="gStatus" role="status" style="margin-top:12px"></p>
+            <div class="feedback" id="gResult" hidden></div>
+            <div class="tool-actions">
+              <button type="button" class="tbtn primary" id="gCheck">Check</button>
+              <button type="button" class="tbtn primary" id="gNext" aria-describedby="gResult" hidden>Next message</button>
+            </div>
+          </div>
+
+          <div id="gEnd" hidden>
+            <h3 class="card-tag" id="gEndHeading" tabindex="-1">YOUR SCORE</h3>
+            <div class="score-wrap">
+              <div class="score-num" id="gScore"></div>
+              <span class="level" id="gLevel"></span>
+            </div>
+            <p class="result-msg" id="gSummary"></p>
+            <div class="end-note">
+              <p><strong>Only 50% of our survey respondents said they were very confident spotting scams.</strong> Another 34.2% were somewhat confident and 15.8% were not confident.</p>
+            </div>
+            <p class="hint">When in doubt: stop, do not click, and check with the real person or company in another way.</p>
+            <div class="tool-actions">
+              <button type="button" class="tbtn primary" id="gAgain">Play again</button>
+              <a class="tbtn" href="#help">Need help? See where to report fraud</a>
+            </div>
+          </div>
+
+          <p class="privacy-note">Examples are made up for learning. Nothing you tap is saved or sent anywhere.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ FEATURE 3: PERSONAL ACTION PLAN ============ -->
+    <section class="section" id="plan" aria-labelledby="planHeading">
+      <div class="shell">
+        <div class="section-intro no-print">
+          <p class="eyebrow">07 · YOUR ACTION PLAN</p>
+          <h2 id="planHeading">Your <span>action plan.</span></h2>
+          <p>Your three weakest areas from the quiz, turned into three simple habits. Each one is tied to a finding from our survey.</p>
+        </div>
+
+        <div class="print-only">
+          <h2>My digital safety plan</h2>
+          <p>Digital Trace · Social Media Safety &amp; Digital Footprint Awareness · CEP 2026–27</p>
+        </div>
+
+        <div id="planBody">
+          <div class="tool-card plan-empty">
+            <h3>Your plan appears here</h3>
+            <p>Finish the Check Yourself quiz and we will pick your three weakest areas and turn them into three habits.</p>
+            <a class="tbtn primary" href="#quiz">Take the quiz</a>
+          </div>
+        </div>
+
+        <div class="plan-actions no-print" id="planActions" hidden>
+          <div class="tool-actions">
+            <button type="button" class="tbtn primary" id="printBtn">Copy my checklist</button>
+            <button type="button" class="tbtn" id="copyBtn">Copy my checklist</button>
+          </div>
+          <p class="plan-status" id="planStatus" role="status"></p>
+        </div>
+
+        <!--
+          TODO BEFORE PUBLISHING: verify this help information is still correct.
+          Check that cybercrime.gov.in is the official National Cybercrime Reporting Portal
+          and that 1930 is the current cyber fraud helpline. Update the text below
+          (it is also used by the "Copy my checklist" button) if anything has changed.
+        -->
+        <aside class="help-note" id="help" aria-labelledby="helpHeading">
+          <h3 id="helpHeading">Need help?</h3>
+          <p id="helpText">If you are a victim of online fraud in India, visit cybercrime.gov.in or call 1930</p>
+        </aside>
+      </div>
+    </section>
+
     <section class="section method-section" id="method">
       <div class="shell">
         <div class="section-intro">
-          <p class="eyebrow">05 · PROJECT METHOD</p>
+          <p class="eyebrow">08 · PROJECT METHOD</p>
           <h2>How the <span>study</span> was built.</h2>
         </div>
+        <p class="data-proof">
+  <strong>Data source:</strong> 38 responses collected through Google Forms.
+  <a href="https://docs.google.com/forms/d/e/1FAIpQLSdfWzPyMTy84-cuxSCtoYG-MQJdMzHgaJw-XMjKIjJk8laJxQ/viewform?usp=sharing&ouid=102319871229289679240" target="_blank" rel="noopener noreferrer">View the survey form</a>
+        </p>
         <div class="method-grid">
           <article><span>01</span><h3>Survey</h3><p>A 15-question questionnaire was used to understand social-media habits, security practices and digital-footprint awareness.</p></article>
           <article><span>02</span><h3>Collect</h3><p>The dataset contains 38 responses. Multiple-choice questions were retained as recorded.</p></article>
@@ -205,7 +364,12 @@
     </section>
   </main>
 
- 
+  <footer>
+    <div class="shell footer-inner">
+      <div><strong>Digital Trace</strong><p>Social Media Safety & Digital Footprint Awareness · CEP 2026–27</p></div>
+      <div class="footer-meta"><span>soham,harshad,yash,trushik</span><span>information technology</span><span>viva college</span><span>gauri vartak</span></div>
+    </div>
+  </footer>
 
   <script src="script.js"></script>
 </body>
